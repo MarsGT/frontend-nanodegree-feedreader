@@ -18,10 +18,7 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
+        // 循环遍历 allFeeds 数组成员，确保 URL 键已被定义且值非空
         it('URL defined and Not empty', function () {
             allFeeds.forEach(function (val) {
                 var url = val.url;
@@ -30,10 +27,7 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
+        // 循环遍历 allFeeds 数组成员，确保 name 键已被定义且值非空
         it('name defined and Not empty', function () {
             allFeeds.forEach(function (val) {
                 var name = val.name;
