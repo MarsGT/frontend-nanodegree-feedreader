@@ -9,7 +9,8 @@ $(function() {
     describe('RSS Feeds', function () {
         var isDefinedAndNotEmpty = function (str) {
             expect(str).toBeDefined();
-            expect(str).not.toBe('');
+            expect(str).toEqual(jasmine.anything()); // 不为 null 或 undefined
+            expect(str).toEqual(jasmine.notEmpty());
         }
 
         // 用来确保 allFeeds 数组被正确定义且不为空
