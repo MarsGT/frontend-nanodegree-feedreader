@@ -74,14 +74,18 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+    // 加载feed内容功能测试
+    describe('Initial Entries', function () {
+        // 测试 loadFeed() 函数是否能正常的加载内容
+        it('loadFeed() is called and completes its work', function (done) {
+            // 由于Ajax是一个异步操作，所以这里需要延迟后再执行测试
+            setTimeout(function () {
+                var entryNum = $('.feed').find('.entry').length;
+                expect(entryNum).toBeGreaterThan(1);
+                done();
+            }, 6000);
+        }, 6500); // 调整默认超时时间
+    });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
