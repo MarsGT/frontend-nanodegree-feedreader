@@ -3,6 +3,12 @@
  * 此文件为 Jasmine 测试文件，包含所有需要在应用中运行的测试。
  */
 
+// 关掉jasmine默认的随机排序
+var jasmineEnv = jasmine.getEnv();
+    jasmineEnv.configure({
+        random: false
+    });
+
 // 把所有测试都放在 Ready 函数里，因为有些测试需要操作 DOM 元素。
 $(function() {
     // 关于 allFeeds 数组的测试
