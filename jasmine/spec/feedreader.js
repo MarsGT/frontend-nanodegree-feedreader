@@ -11,7 +11,7 @@ var jasmineEnv = jasmine.getEnv();
 
 // 把所有测试都放在 Ready 函数里，因为有些测试需要操作 DOM 元素。
 $(function() {
-    // 关于 allFeeds 数组的测试
+    // 关于 allFeeds 数组(Feed资源列表)的测试
     describe('RSS Feeds', function () {
         var isDefinedAndNotEmpty = function (str) {
             expect(str).toBeDefined();
@@ -74,23 +74,33 @@ $(function() {
         });
     });
 
-    // 加载feed内容功能测试
+    var ajaxDelay    = 6000, // 等待Ajax加载内容的延迟时间
+        jasmineDelay = 6500; // 自定义的jasmine异步延迟等待时间
+
+    // 初始加载feed内容功能测试
     describe('Initial Entries', function () {
-        // 测试 loadFeed() 函数是否能正常的加载内容
+        // 测试 app.js 中的 loadFeed() 在初始化阶段是否被正常调用并加载出了内容
         it('loadFeed() is called and completes its work', function (done) {
-            // 由于Ajax是一个异步操作，所以这里需要延迟后再执行测试
+            // 由于Ajax涉及异步操作，所以这里需要延迟后再执行测试
             setTimeout(function () {
                 var entryNum = $('.feed').find('.entry').length;
                 expect(entryNum).toBeGreaterThan(1);
                 done();
-            }, 6000);
-        }, 6500); // 调整默认超时时间
+            }, ajaxDelay);
+        }, jasmineDelay); // 调整默认超时时间
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
-
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+    // 再次加载feed内容功能测试
+    describe('New Feed Selection', function () {
+        // 测试 app.js 中的 loadFeed() 在变更数据源后是否还可以正常工作
+        it('loadFeed() still works properly', function (done) {
+            var oldContent = $('.entry').eq(0).children('h2').text(), // 缓存旧内容，1个就够
+                cb = function () {
+                    var newContent = $('.entry').eq(0).children('h2').text();
+                    expect(newContent).not.toEqual(oldContent);
+                    done();
+                }
+            loadFeed(2, cb);
+        }, jasmineDelay);
+    });
 }());
