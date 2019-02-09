@@ -28,8 +28,11 @@ $(function() {
         // 循环遍历 allFeeds 数组成员，确保 URL 键已被定义且值非空
         it('URL defined and Not empty', function () {
             allFeeds.forEach(function (val) {
-                var url = val.url;
-                isDefinedAndNotEmpty(url)
+                var url = val.url,
+                    urlVeri = /^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/;
+                
+                isDefinedAndNotEmpty(url);
+                expect(url).toMatch(urlVeri); // URL 合法性校验（使用正则）
             });
         });
 
